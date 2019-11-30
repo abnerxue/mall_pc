@@ -520,24 +520,24 @@ export default {
       
      
     },
-      load() {
-      let data = {
-        name: "guwei",
-        password: this.$md5("123456")
-      };
-      console.log(data)
-      let self = this;
-      self.$ajax
-        .post("/index.php/login/login?ajax=true", self.$qs.stringify(data), {})
-        .then(res => {
-          // self.list = res.datalist;
-           console.log(res.data);
-          self.token = res.data.token;
+    //   load() {
+    //   let data = {
+    //     name: "guwei",
+    //     password: this.$md5("123456")
+    //   };
+    //   console.log(data)
+    //   let self = this;
+    //   self.$ajax
+    //     .post("/index.php/login/login?ajax=true", self.$qs.stringify(data), {})
+    //     .then(res => {
+    //       // self.list = res.datalist;
+    //        console.log(res.data);
+    //       self.token = res.data.token;
 
          
-          // self.list
-        });
-    },
+    //       // self.list
+    //     });
+    // },
      getlist() {
       let data = {
        token:this.token

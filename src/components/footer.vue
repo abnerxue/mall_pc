@@ -3,42 +3,42 @@
     <div class="foot-t">
       <ul>
         <li>
-          <i>图标</i>
+          <i><img src="../../static/img/source.png" alt=""></i>
           <p>
             <span>源头直供</span>
             <span>无中间商 确保低价</span>
           </p>
         </li>
         <li>
-          <i>图标</i>
+          <i><img src="../../static/img/quality.png" alt=""></i>
           <p>
             <span>品质保障</span>
             <span>品质护航 购物无忧</span>
           </p>
         </li>
         <li>
-          <i>图标</i>
+          <i><img src="../../static/img/replacement.png" alt=""></i>
           <p>
             <span>七天无理由退换</span>
             <span>为您提供售后无忧保障</span>
           </p>
         </li>
         <li>
-          <i>图标</i>
+          <i><img src="../../static/img/delivery.png" alt=""></i>
           <p>
             <span>保价配送</span>
             <span>支持退换 安全便捷</span>
           </p>
         </li>
         <li>
-          <i>图标</i>
+          <i><img src="../../static/img/supervise.png" alt=""></i>
           <p>
             <span>质检监督</span>
             <span>正品保障 支持复检</span>
           </p>
         </li>
         <li>
-          <i>图标</i>
+          <i><img src="../../static/img/shot.png" alt=""></i>
           <p>
             <span>实物拍摄</span>
             <span>相机拍摄 真实还原</span>
@@ -48,28 +48,28 @@
     </div>
     <div class="foot-b">
       <ul>
-        <li>关于我们</li>
-        <li>发展沿革</li>
-        <li>组织架构图</li>
-        <li>发展愿景</li>
-        <li>团队介绍</li>
+        <li><a href="/about_us.html">关于我们</a></li>
+        <li>><a href="/about_us/2090.html">发展沿革</a></li>
+        <li>><a href="/about_us/2091.html">组织架构图</a></li>
+        <li>><a href="/about_us/2092.html">发展愿景</a></li>
+        <li>><a href="/about_us/2108.html">集团介绍</a></li>
       </ul>
       <span></span>
       <ul>
-        <li>帮助中心</li>
-        <li>购买翡翠常遇问题</li>
-        <li>无忧退货</li>
-        <li>怀南会承诺</li>
-        <li>发票说明</li>
+        <li><a href="/help_list/66.html">帮助中心</a></li>
+        <li>><a href="/help/2174.html">购买翡翠常遇问题</a></li>
+        <li>><a href="/help/2175.html">无忧退货</a></li>
+        <li>><a href="/help/2176.html">怀南会承诺</a></li>
+        <li>><a href="/help/2177.html">发票说明</a></li>
       </ul>
       <span></span>
       <ul>
-        <li>支付方式</li>
+        <li><a href="/article_list/70.html">媒体报道</a></li>
         <li>支付宝</li>
         <li>微信支付</li>
         <li>银行卡汇款/转账</li>
       </ul>
-      <span></span>
+      <!-- <span></span>
       <ul class="qr_phone">
         <li>
           <i></i>
@@ -83,7 +83,7 @@
             <i></i>Android
           </span>
         </li>
-      </ul>
+      </ul> -->
     </div>
     <div class="foot">
       <p>电话：0519-86888690&nbsp;周一到周六&nbsp;09:00-22:00&nbsp;&nbsp;苏ICP备19046182号-1</p>
@@ -182,12 +182,15 @@ export default {
   font-size: 12px;
   color: #8d8d8d;
 }
-.foot-b ul li:first-child {
+.foot-b ul li:first-child a{
   font-size: 15px;
   color: rgb(116, 24, 27);
   margin-bottom: 10px;
 }
-.foot-b ul li:last-child {
+.foot-b ul li:hover a{
+  color:rgb(116, 24, 27);
+}
+.foot-b ul li:last-child a{
   margin: 0;
 }
 .foot-b > span {

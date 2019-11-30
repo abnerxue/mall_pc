@@ -43,7 +43,7 @@ export default {
       let data = {
         page: "1",
         span: "10",
-        token: localStorage.getItem("token")
+        token: this.c.getCookie(),
       };
       let self = this;
       this.$ajax

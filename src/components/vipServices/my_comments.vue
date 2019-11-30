@@ -13,9 +13,8 @@
               <td>评价人</td>
             </tr>
             <tr v-for="(item,i) in commentsList" :key="i">
-              <td v-for="(val,k) in item.images" :key="k">
-                <img alt />
-                <img alt />
+              <td>
+                <img v-for="(val,k) in item.images" :key="k" :src="val" />
               </td>
               <td>
                 <el-rate
@@ -65,7 +64,7 @@ export default {
     },
     getlist(page) {
       let data = {
-        token: localStorage.getItem("token"),
+        token: this.c.getCookie(),
         span: "10",
         page: page?page:1
       };
@@ -160,6 +159,7 @@ export default {
   height: 85px;
   text-align: center;
   color: #666;
+  width: 100%;
 }
 .shop_right div table tr td {
   border-bottom: 1px #ececec solid;

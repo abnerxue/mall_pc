@@ -4,7 +4,7 @@
  * @Author: 薛松田
  * @Date: 2019-11-19 14:07:13
  * @LastEditors: 薛松田
- * @LastEditTime: 2019-11-25 11:36:43
+ * @LastEditTime: 2019-11-28 17:44:46
  */
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
@@ -13,6 +13,9 @@ import App from './App'
 import router from './router'
 
 import axios from 'axios';
+
+import base from '../base/base';
+Vue.prototype.c=base
 
 //axios请求数据格式化成java服务器能识别的组件
 import qs from 'qs'; 
@@ -44,6 +47,7 @@ Vue.prototype.$md5 = md5;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  base,
   router,
   components: { App },
   template: '<App/>'

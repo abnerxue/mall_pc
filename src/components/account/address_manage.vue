@@ -5,7 +5,7 @@
         <h1>配送地址</h1>
         <div class="increased">
           <el-button class="button" @click="inscreased">新增地址</el-button>
-          <p>您已创建{{list.length}}个收货地址，最多创建20个</p>
+          <p>您已创建{{ list.length }}个收货地址，最多创建20个</p>
         </div>
         <table cellspacing="0">
           <tr>
@@ -57,8 +57,12 @@
           width="500px"
           :before-close="handleClose"
         >
-          <el-form :model="form" :rules='rules' ref='form'>
-            <el-form-item label="所属省份" :label-width="formLabelWidth" prop='province_act'>
+          <el-form :model="form" :rules="rules" ref="form">
+            <el-form-item
+              label="所属省份"
+              :label-width="formLabelWidth"
+              prop="province_act"
+            >
               <el-select
                 @change="provinceChange"
                 v-model="form.province_act"
@@ -73,7 +77,11 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="所属城市" :label-width="formLabelWidth" prop='city_act'>
+            <el-form-item
+              label="所属城市"
+              :label-width="formLabelWidth"
+              prop="city_act"
+            >
               <el-select
                 v-model="form.city_act"
                 value-key="code"
@@ -88,7 +96,11 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="区/县" :label-width="formLabelWidth" prop='county_act'>
+            <el-form-item
+              label="区/县"
+              :label-width="formLabelWidth"
+              prop="county_act"
+            >
               <el-select
                 v-model="form.county_act"
                 value-key="code"
@@ -103,13 +115,25 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="详细地址" :label-width="formLabelWidth" prop='add'>
+            <el-form-item
+              label="详细地址"
+              :label-width="formLabelWidth"
+              prop="add"
+            >
               <el-input v-model="form.add" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="收货人姓名" :label-width="formLabelWidth" prop='name'>
+            <el-form-item
+              label="收货人姓名"
+              :label-width="formLabelWidth"
+              prop="name"
+            >
               <el-input v-model="form.name" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="手机号码" :label-width="formLabelWidth" prop='tel'>
+            <el-form-item
+              label="手机号码"
+              :label-width="formLabelWidth"
+              prop="tel"
+            >
               <el-input v-model="form.tel" autocomplete="off"></el-input>
             </el-form-item>
           </el-form>
@@ -163,20 +187,42 @@ export default {
       formLabelWidth: "120px",
       dialogVisibles: false,
       rules: {
-        county_act: [{ required: true, message: "请选择所在区县", trigger: "blur" }],
-        city_act:[{ required: true, message: "", message: "请选择所在市", trigger: "blur" }],
-         province_act:[{ required: true, message: "请选择所在省",trigger: "blur"}],
-    tel: [
-         { required: true,
-          pattern: /^1[3456789]\d{9}$/,
-          message: "请输入正确的电话号码",
-          trigger: "blur"}
-      ],
-        name: [{ required: true,min: 10, max: 11, message: "请输入姓名", trigger: "blur" }],
+        county_act: [
+          { required: true, message: "请选择所在区县", trigger: "blur" }
+        ],
+        city_act: [
+          {
+            required: true,
+            message: "",
+            message: "请选择所在市",
+            trigger: "blur"
+          }
+        ],
+        province_act: [
+          { required: true, message: "请选择所在省", trigger: "blur" }
+        ],
+        tel: [
+          {
+            required: true,
+            pattern: /^1[3456789]\d{9}$/,
+            message: "请输入正确的电话号码",
+            trigger: "blur"
+          }
+        ],
+        name: [
+          {
+            required: true,
+            min: 10,
+            max: 11,
+            message: "请输入姓名",
+            trigger: "blur"
+          }
+        ],
         add: [{ required: true, message: "请输入详细地址", trigger: "blur" }]
-      }}
-    },
-  
+      }
+    };
+  },
+
   watch: {
     address(val) {
       this.analysisDefaultAddress();
@@ -319,7 +365,7 @@ export default {
     del() {
       this.dialogVisiblef = false;
       let data = {
-        token: this.token,
+        token: this.c.getCookie(),
         id: this.deleteid
       };
       let self = this;
@@ -343,12 +389,12 @@ export default {
               duration: "800"
             });
           }
+          this.getlist();
         });
-      this.getlist();
     },
     defaulta(id) {
       let data = {
-        token: this.token,
+        token: this.c.getCookie(),
         id: id
       };
       let self = this;
@@ -428,7 +474,7 @@ export default {
         }
       });
       let data = {
-        token: this.token,
+        token: this.c.getCookie(),
         name: this.form.name,
         phone: this.form.tel,
         /*  proviceId:p_id,
@@ -437,10 +483,14 @@ export default {
         address: this.form.add,
         addressid: this.detailid
       };
-      if(this.list.length < 20){
+      if(this.list.length < 20 || this.sign == 2){
         let self = this;
         self.$ajax
-          .post("/index.php/user/address/add_edit", self.$qs.stringify(data), {})
+          .post(
+            "/index.php/user/address/add_edit",
+            self.$qs.stringify(data),
+            {}
+          )
           .then(res => {
             if (res.data.code === 1) {
               this.$message({
@@ -464,17 +514,17 @@ export default {
           });
       } else {
         this.$message({
-          message: '添加地址已到达上限，请删除后再添加！',
+          message: "添加地址已到达上限，请删除后再添加！",
           type: "warning",
           center: "true",
           offset: "300",
-          showClose: true,
+          showClose: true
         });
       }
     },
     getlist() {
       let data = {
-        token: localStorage.getItem('token')
+        token:this.c.getCookie(),
       };
       let self = this;
       let list = [];
@@ -507,6 +557,7 @@ export default {
         name: "",
         add: ""
       };
+      this.sign = 1;
     }
   }
 };
@@ -524,6 +575,7 @@ export default {
 }
 .shop_right table tr {
   width: 100%;
+  height: 50px;
 }
 .shop_right table th {
   height: 4.8rem;
@@ -534,7 +586,7 @@ export default {
 .el-select {
   width: 100% !important;
 }
-.shop_right table td:last-of-type span{
+.shop_right table td:last-of-type span {
   cursor: pointer;
 }
 .shop_right table td {

@@ -179,121 +179,27 @@ export default {
       
     },
     getList(){
-      // let data = {
-      //   token: localStorage.getItem('token'),
-      //   expressId: 2,//this.$route.query.expressId,
-      //   logisticCode: 773014136444784,//this.$route.query.logisticCode
-      // };
-      // let self = this;
-      // let list = [];
-      // self.$ajax
-      //   .post(
-      //     "/index.php/api/user/kuaidiniao",
-      //     self.$qs.stringify(data),
-      //     {}
-      //   )
-      //   .then(res => {
-      //     console.log(res);
-      //     self.list = res.data.list;
-      //   });
-      this.list = {
-        "StateEx": "301",
-        "LogisticCode": "773014136444784",
-        "ShipperCode": "STO",
-        "Traces": [
-          {
-            "Action": "1",
-            "AcceptStation": "江苏省市场部九十四部-大客户13-已收件",
-            "AcceptTime": "2019-11-14 22:29:04",
-            "Location": "南京市"
-          },
-          {
-            "Action": "2",
-            "AcceptStation": "江苏南京江宁公司-已装袋发往-江苏南京转运中心",
-            "AcceptTime": "2019-11-17 18:01:03",
-            "Location": "南京市"
-          },
-          {
-            "Action": "2",
-            "AcceptStation": "江苏南京江宁公司-已装袋发往-江苏南京转运中心",
-            "AcceptTime": "2019-11-17 18:06:42",
-            "Location": "南京市"
-          },
-          {
-            "Action": "2",
-            "AcceptStation": "已到达-江苏南京转运中心",
-            "AcceptTime": "2019-11-17 20:07:50",
-            "Location": "南京市"
-          },
-          {
-            "Action": "2",
-            "AcceptStation": "江苏南京转运中心-已装袋发往-江苏无锡中转部",
-            "AcceptTime": "2019-11-17 20:26:59",
-            "Location": "无锡市"
-          },
-          {
-            "Action": "2",
-            "AcceptStation": "已到达-江苏无锡中转部",
-            "AcceptTime": "2019-11-18 01:34:37",
-            "Location": "无锡市"
-          },
-          {
-            "Action": "2",
-            "AcceptStation": "江苏无锡中转部-已装袋发往-江苏常州集散中心",
-            "AcceptTime": "2019-11-18 01:49:06",
-            "Location": "常州市"
-          },
-          {
-            "Action": "2",
-            "AcceptStation": "已到达-江苏常州集散中心",
-            "AcceptTime": "2019-11-18 04:12:29",
-            "Location": "常州市"
-          },
-          {
-            "Action": "2",
-            "AcceptStation": "江苏常州集散中心-已发往-江苏常州公司",
-            "AcceptTime": "2019-11-18 04:24:39",
-            "Location": "常州市"
-          },
-          {
-            "Action": "2",
-            "AcceptStation": "已到达-江苏常州钟楼永红分部",
-            "AcceptTime": "2019-11-19 07:00:24",
-            "Location": "常州市"
-          },
-          {
-            "Action": "202",
-            "AcceptStation": "江苏常州钟楼永红分部-永红十五-派件中",
-            "AcceptTime": "2019-11-19 09:09:42",
-            "Location": "常州市"
-          },
-          {
-            "Action": "301",
-            "AcceptStation": "已签收,签收人是（徐15861196435）先生/女士，风里来，雨里去，汗也撒泪也流，申通小哥一刻不停留。不求服务惊天下，但求好评动我心，给个好评呗！！如有疑问请联系派件员永红十五，感谢使用申通快递，期待再次为您服务",
-            "AcceptTime": "2019-11-19 13:10:08",
-            "Location": "常州市"
-          },
-          {
-            "Action": "2",
-            "AcceptStation": "快件已暂存至常州世纪明珠园17-7号店菜鸟驿站，如有疑问请联系15312399123",
-            "AcceptTime": "2019-11-19 14:52:21",
-            "Location": "常州市"
-          },
-          {
-            "Action": "301",
-            "AcceptStation": "已签收，签收人凭取货码签收。",
-            "AcceptTime": "2019-11-19 18:09:32",
-            "Location": "常州市"
-          }
-        ],
-        "State": "3",
-        "EBusinessID": "1604210",
-        "Success": true,
-        "Location": "常州市"
-      }
-      this.traces = this.list.Traces;
-      this.step = this.list.State==1||this.list.State==0?1:this.list.State==2?2:this.list.State==3?4:3; //0-无轨迹 1-已揽收 2-在途中 3-签收 201-到达派件城市
-      console.log(this.step,this.list);
+      let data = {
+        token: this.c.getCookie(),
+        expressid: '2',//this.$route.query.expressId,
+        logisticCode: '773014136444784',//this.$route.query.logisticCode
+      };
+      let self = this;
+      let list = [];
+      self.$ajax
+        .post(
+          "/index.php/api/user/kuaidiniao",
+          self.$qs.stringify(data),
+          {}
+        )
+        .then(res => {
+          console.log(res);
+          self.list = eval('(' + res.data + ')');
+          this.traces = this.list.Traces;
+          this.step = (this.list.State==1||this.list.State==0)?1:(this.list.State==2)?2:(this.list.State==3)?4:3; //0-无轨迹 1-已揽收 2-在途中 3-签收 201-到达派件城市
+          console.log(self.list);
+        });
+  
     }
   }
 };

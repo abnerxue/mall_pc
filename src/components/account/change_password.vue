@@ -4,7 +4,7 @@
  * @Author: 薛松田
  * @Date: 2019-11-23 09:16:44
  * @LastEditors: 薛松田
- * @LastEditTime: 2019-11-26 14:37:57
+ * @LastEditTime: 2019-11-28 16:31:51
  -->
 <template>
   <div class="content_box">
@@ -21,7 +21,8 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+  }
 };
 </script>
 

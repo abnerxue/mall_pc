@@ -108,7 +108,7 @@ export default {
     submitEvaluate() {
       this.imgList.map((item, i) => {
         let data = {
-          token: localStorage.getItem("token"),
+          token: this.c.getCookie(),
           userfile: item.file.src
         };
         let self = this;
@@ -132,7 +132,7 @@ export default {
     submit(){
       let data = {
         id: this.id,
-        token: localStorage.getItem("token"),
+        token: this.c.getCookie(),
         content: this.Egoods + this.Eservice,
         grade: this.value1
       };

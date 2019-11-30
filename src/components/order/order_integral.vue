@@ -91,7 +91,7 @@
               </td>
             </tr>
           </table>
-          <div v-if="!orderlist||orderlist.length==0" class="noOrder">
+          <div v-if="!orderlist" class="noOrder">
             <img src="../../../static/img/noOrder.jpg" alt />
             <p>您当前没有任何订单哦！</p>
           </div>
@@ -115,13 +115,14 @@ export default {
       redText: 1,
       tag: 1,
       detail: null,
-      orderlist: [],
+      orderlist: true,
       token: "",
       totalPage: null //页数
     };
   },
   mounted() {
-    this.load();
+    this.getorderlist()
+    this.getorderlist();
   },
   methods: {
     Topage(i) {
@@ -136,20 +137,7 @@ export default {
         this.getorderlist("un_evaluated", i);
       }
     },
-    load() {
-      let data = {
-        name: "guwei",
-        password: this.$md5("123456")
-      };
-      let self = this;
-      self.$ajax
-        .post("/index.php/login/login?ajax=true", self.$qs.stringify(data), {})
-        .then(res => {
-          // self.list = res.datalist;
-          self.token = res.data.token;
-          self.getorderlist();
-        });
-    },
+   
     showDiv(i) {
       this.redText = i;
       this.tag = 1;
@@ -166,7 +154,7 @@ export default {
     canaelOrder() {},
     getorderlist(status, page) {
       let data = {
-        token: this.token,
+        token: this.c.getCookie(),
         status: status,
         activity: "4",
         span: "10",

@@ -1,3 +1,4 @@
+
 <template>
   <div class="shop_left">
     <div class="shop_logo">
@@ -60,7 +61,7 @@ export default {
     };
   },
   mounted() {
-    this.load();
+    this.getlist()
     this.tag = localStorage.getItem("tag")?localStorage.getItem("tag"):1;
   },
   methods: {
@@ -95,22 +96,9 @@ export default {
         this.$router.push({name: 'myComments'});
       }
     },
-    load() {
-      let data = {
-        name: "guwei",
-        password: this.$md5("123456")
-      };
-      let self = this;
-      self.$ajax
-        .post("/index.php/login/login?ajax=true", self.$qs.stringify(data), {})
-        .then(res => {
-          this.token = res.data.token;
-          this.getlist();
-        });
-    },
     getlist() {
       let data = {
-        token: this.token
+        token: this.c.getCookie()
       };
       let self = this;
       self.$ajax
@@ -120,7 +108,12 @@ export default {
           {}
         )
         .then(res => {
+          sessionStorage.setItem('login',res.data.login)
+          let a=sessionStorage.getItem('login')
+          console.log(a)
+          console.log(res)
           self.uesrinfo = res.data.result;
+          console.log(this.userinfo)
           let Info = {
             reward: self.uesrinfo.reward,  //获得的奖励
             referrals: self.uesrinfo.referrals,  //推荐人数
@@ -165,7 +158,7 @@ export default {
   margin: 30px 0 0 20px;
   float: left;
 }
-.shop_logo .logo img{
+.shop_logo .logo img {
   width: 100%;
   height: 100%;
 }

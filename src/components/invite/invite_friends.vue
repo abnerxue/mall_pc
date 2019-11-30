@@ -87,7 +87,7 @@ export default {
     },
     getlist(page) {
       let data = {
-        token: localStorage.getItem("token"),
+        token: this.c.getCookie(),
         page: page?page:1,
         span: '10'
       };

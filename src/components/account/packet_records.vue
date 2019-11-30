@@ -17,16 +17,12 @@
                {{
                   item.endTimeDate
                 }}
-                {{
-                  item.postTimeDate.slice(0, 10)
-                }}&nbsp;&nbsp;至&nbsp;&nbsp;{{
-                  item.endTimeDate.slice(0, 10)
-                }}
+               
               </td>
               <td>{{ item.minPrice }}元</td>
               <td>{{ item.statusName }}</td>
             </tr>
-            <tr v-if="!list || list.length == 0">
+            <tr class="nored">
               <td colspan="3">
                 <img src="../../../static/img/redbag.png" />
                 <br />暂无红包
@@ -84,7 +80,7 @@ export default {
     },
     getlist(page) {
       let data = {
-        token: localStorage.getItem("token"),
+        token: this.c.getCookie(),
         page: page ? page : 1,
         span: '10'
       };
@@ -99,25 +95,16 @@ export default {
           self.list = res.data;
           self.totalPage = res.data.totalPage;
         });
+        if(this.list==''){
+          $('.nored').css('display','none')
+        }
     }
   }
 };
 </script>
 
-<style scoped>
-.active {
-  border-bottom: 2px solid #74171b;
-  color: #74171b;
-}
-.pages {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-        });
-    }
-  }
-};
-</script>
+
+
 
 <style scoped>
 .active {

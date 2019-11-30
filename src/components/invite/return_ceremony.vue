@@ -103,7 +103,7 @@ export default {
     },
     submitCash() {
       let data = {
-        token: this.token,
+        token: this.c.getCookie(),
         sms_verify: '',
         openingBank: '',
         account: '',
@@ -142,7 +142,7 @@ export default {
     },
     getData(page) {
       let data = {
-        token: localStorage.getItem("token"),
+        token: this.c.getCookie(),
         page: page?page:1,
         span: "10"
       };

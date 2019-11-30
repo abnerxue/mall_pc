@@ -118,21 +118,24 @@ export default {
       redText: 1,
       redColor: 1,
       detail: null,
-      orderlist: [],
+      orderlist: true,
       token: null,
       totalPage: null,
       tag: 1
     };
   },
   mounted() {
-    this.load();
+   this.getorderlist()
+
+    this.getorderlist()
   },
   methods: {
     confirmOrder(id){
       let data = {
-        token: this.token,
+        token: this.c.getCookie(),
         orderId: id
       };
+      cosole.log(data)
       let self = this;
       self.$ajax
         .post("/index.php/user/order/confirm_receive?ajax=true", self.$qs.stringify(data), {})
@@ -152,20 +155,6 @@ export default {
         this.getorderlist("un_evaluated", i);
       }
     },
-    load() {
-      let data = {
-        name: "guwei",
-        password: this.$md5("123456")
-      };
-      let self = this;
-      self.$ajax
-        .post("/index.php/login/login?ajax=true", self.$qs.stringify(data), {})
-        .then(res => {
-          self.token = res.data.token;
-          localStorage.setItem("token", self.token);
-          self.getorderlist();
-        });
-    },
     showDiv(i) {
       this.tag = 1;
       this.redText = i;
@@ -180,15 +169,15 @@ export default {
       }
     },
     canaelOrder() {},
-
     getorderlist(status, page) {
       let data = {
-        token: this.token,
+        token: this.c.getCookie(),
         status: status,
         activity: "0",
-        span: "1",
+        span: "10",
         page: page ? page : 1
       };
+      console.log(data)
       let self = this;
       self.$ajax
         .post(

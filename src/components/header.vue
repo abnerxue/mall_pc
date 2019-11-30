@@ -15,7 +15,11 @@
               <i></i>会员中心
             </span>
           </li>
-          <li>请登录/免费注册</li>
+          <li  v-if="this.login!=1">请先<a herf='/login.html'>[登录]</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a herf='/login.html?type=reg'>[注册]</a></li>
+          <!-- <li  v-else ><span @click="logout">退出</span></li> -->
+          <li  v-else ><a href="/login/logout.html">[退出]</a></li>
+          <li @click="$router.push({name: 'index'});">用户中心</li>
+          <li ><a href="/user/cart.html">购物车</a></li>
         </ul>
       </div>
     </div>
@@ -34,9 +38,9 @@
           </div>
         </form>
       </div>
-      <div class="qrcode"></div>
+      <!-- <div class="qrcode"></div> -->
     </div>
-    <div class="nav">
+	<div class="nav">
       <ul>
         <li class="all" @mouseover="mouseOver()" @mouseleave="mouseLeave()">
           <i></i>
@@ -193,17 +197,16 @@
           </ul>
         </li>
         <li><a href="/">首页</a></li>
-        <li>新人专享</li>
-        <li>团购</li>
-        <li>秒杀</li>
-        <li>买家互动</li>
-        <li>积分商城</li>
-        <li>关于我们</li>
-        <li>百科资讯</li>
-        <li>商家入驻</li>
+        <li>新人专享<a href="/new_person.html">首页</a></li>
+        <li><a href="/group.html">团购</a></li>
+        <li><a href="/seckill.html">秒杀</a></li>
+        <li><a href="/score.html">积分商城</a></li>
+        <li><a href="/about_us.html">关于我们</a></li>
+        <li><a href="/article_list/86.html">百科资讯</a></li>
       </ul>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -211,15 +214,34 @@ export default {
   name: "Header",
   data() {
     return {
+      login:'',
       navShow: false,
       navList: false
     };
   },
   mounted() {
+    this.status()
     this.mouseOver();
     this.mouseLeave();
   },
   methods: {
+    status(){
+      this.login=sessionStorage.getItem('login')
+    },
+    logout(){
+     
+        console.log('logout')
+      let self = this;
+      self.$ajax
+        .get(
+          "/index.php/login/logout?ajax=true",
+          self.$qs.stringify(),
+          {}
+        )
+        .then(res => {
+          
+        });
+    },
     mouseOver() {
       this.navShow = true;
     },
@@ -235,7 +257,7 @@ export default {
 .head {
   width: 100%;
   height: 179px;
-  box-shadow: 0 1px 12px #888888;
+  box-shadow: 0 1px 10px #f5f5f5;
   min-width: 1200px;
 }
 .head-t {

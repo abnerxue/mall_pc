@@ -2,7 +2,7 @@
   <div class="content_box">
     <div class="content">
       <div class="shop_right">
-        <h1>修改验证码</h1>
+        <h1>修改密码</h1>
 
         <div style="width:100%;">
           <div v-show="active == 1">
@@ -88,13 +88,13 @@ export default {
     };
   },
   mounted() {
-    this.load();
+
     this.getlistf();
   },
   methods: {
     getlistf() {
       let data = {
-        token: this.token
+        token: this.c.getCookie()
       };
       let self = this;
       self.$ajax
@@ -108,23 +108,7 @@ export default {
           console.log(self.uesrinfo);
         });
     },
-    load() {
-      let data = {
-        name: "guwei",
-        password: this.$md5("123456")
-      };
-      console.log(data);
-      let self = this;
-      self.$ajax
-        .post("/index.php/login/login?ajax=true", self.$qs.stringify(data), {})
-        .then(res => {
-          // self.list = res.datalist;
-          console.log(res.data);
-          self.token = res.data.token;
-
-          // self.list
-        });
-    },
+   
     logoff() {
       this.$router.push("/login");
     },
@@ -156,7 +140,7 @@ export default {
       }
 
       let data = {
-        token: this.token,
+        token: this.c.getCookie(),
         password: this.$md5(this.inputf),
         captcha: this.code
       };
@@ -164,7 +148,7 @@ export default {
       let self = this;
       self.$ajax
         .post(
-          "/index.php/user/password/alter_pwd",
+          "/index.php/user/passwd/alter_pwd",
           self.$qs.stringify(data),
           {}
         )
@@ -179,13 +163,20 @@ export default {
               center: true,
               offset: "300"
             });
+          } else {
+            this.$message({
+              message: res.data.message,
+              type: "error",
+              center: true,
+              offset: "300"
+            });
           }
         });
     },
 
     sendcode() {
       let data = {
-        token: this.token
+        token: this.c.getCookie()
       };
       let self = this;
       self.$ajax

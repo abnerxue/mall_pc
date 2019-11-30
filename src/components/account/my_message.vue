@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       list: "",
-      token: null,
+      token: null
     };
   },
   created() {},
@@ -49,27 +49,10 @@ export default {
     // this.getlist();
   },
   methods: {
-    load() {
-      let data = {
-        name: "guwei",
-        password: this.$md5("123456")
-      };
-      let self = this;
-      self.$ajax
-        .post("/index.php/login/login?ajax=true", self.$qs.stringify(data), {})
-        .then(res => {
-          // self.list = res.datalist;
-          console.log(res);
-          self.token = res.data.token;
-          localStorage.setItem("token", self.token);
-          self.getorderlist();
-          // console.log(res.data);
-          // self.list
-        });
-    },
+   
     Topage(i) {
       let data = {
-        token: localStorage.getItem("token"),
+        token: this.c.getCookie(),
         page: i
       };
       let self = this;
@@ -88,7 +71,7 @@ export default {
     },
     getlist() {
       let data = {
-        token: localStorage.getItem("token")
+        token: this.c.getCookie(),
       };
       let self = this;
       self.$ajax
@@ -109,7 +92,7 @@ export default {
 </script>
 
 <style scoped>
-.noInfo{
+.noInfo {
   font-size: 20px;
   margin: 60px;
   text-align: center;

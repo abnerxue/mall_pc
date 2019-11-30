@@ -4,7 +4,7 @@
  * @Author: 薛松田
  * @Date: 2019-11-19 14:06:21
  * @LastEditors: 薛松田
- * @LastEditTime: 2019-11-26 10:15:17
+ * @LastEditTime: 2019-11-29 11:11:11
  */
 'use strict'
 // Template version: 1.3.1
@@ -20,7 +20,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/index.php/': {
-        target:"http://test.huainanhui.com",
+        target:"/",
         secure: false,
         changeOrigin: true
       }, 
@@ -28,7 +28,7 @@ module.exports = {
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port:80, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
@@ -64,7 +64,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
